@@ -1,0 +1,34 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<nav>
+	<form action="{% url 'company' %}" class="search-form" method="POST">
+		{% csrf_token %}
+		<input type="text" placeholder="Enter ticker" name='ticker'>
+		<button type="submit">Search</button>
+	</form>
+</nav>
+{%for api in apis%}
+	{%if api%}
+		{%if api == "Error..."%}
+			{{api}}
+		{% else %}
+
+			<h1><a href="{% url 'company_stocks' symbol=api.symbol %}">{{api.companyName}}</a></h1><br>
+			Price:${{api.latestPrice}}<br>
+			Previous close:${{api.previousClose}}<br>
+			Market Cap:{{api.marketCap}}<br>
+			YTD Change: {{api.ytdChange}}<br>
+			Week 52 High: {{api.week52High}}<br>
+			Week 52 Low: {{api.week52Low}}<br>
+
+
+
+		{%endif%}
+
+	{%endif%}
+{% endfor %}
+
+
+
+{% endblock %}
