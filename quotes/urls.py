@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns=[
 path('',views.stocks,name="stocks"),
-path('company/',views.company,name='company'),
+path('company/',views.company,name="company"),
+path('company/<str:ticker>',views.graph,name="graph"),
 path('<str:symbol>',views.company_stocks,name='company_stocks'),
 ]
