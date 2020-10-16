@@ -204,6 +204,26 @@ def graph(request,ticker):
 			api_chart="Error..."
 			dates_JSON="Error..."
 
+	elif(g_scale == "5"):
+		h_var='Time'
+		v_var='Price'
+		title='Time vs Price(Last 20 minutes)'
+		try:
+			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/intraday-prices?&chartLast=20&token=pk_5809718036484b32b2511b568e7ed15a")
+			api_chart=json.loads(api_chartreq.content)
+			for api_c in api_chart:
+				dates.append([api_c['minute'],api_c['close']])
+			h_var_JSON=json.dumps(h_var)
+			v_var_JSON=json.dumps(v_var)
+			dates_JSON=json.dumps(dates)
+			title_JSON=json.dumps(title)
+
+
+		except Exception as e:
+			api_chart="Error..."
+			dates_JSON="Error..."
+
+
 	else:
 		h_var='Time'
 		v_var='Price'
