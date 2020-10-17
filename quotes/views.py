@@ -5,15 +5,15 @@ from django.http import JsonResponse
 def stocks(request):
 	import requests
 	import json
-	api_req1=requests.get("https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req2=requests.get("https://cloud.iexapis.com/stable/stock/googl/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req3=requests.get("https://cloud.iexapis.com/stable/stock/amzn/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req4=requests.get("https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req5=requests.get("https://cloud.iexapis.com/stable/stock/fb/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req6=requests.get("https://cloud.iexapis.com/stable/stock/tcs/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req7=requests.get("https://cloud.iexapis.com/stable/stock/wit/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req8=requests.get("https://cloud.iexapis.com/stable/stock/infy/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_req9=requests.get("https://cloud.iexapis.com/stable/stock/msft/quote?token=pk_5809718036484b32b2511b568e7ed15a")
+	api_req1=requests.get("https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req2=requests.get("https://cloud.iexapis.com/stable/stock/googl/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req3=requests.get("https://cloud.iexapis.com/stable/stock/amzn/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req4=requests.get("https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req5=requests.get("https://cloud.iexapis.com/stable/stock/fb/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req6=requests.get("https://cloud.iexapis.com/stable/stock/tcs/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req7=requests.get("https://cloud.iexapis.com/stable/stock/wit/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req8=requests.get("https://cloud.iexapis.com/stable/stock/infy/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_req9=requests.get("https://cloud.iexapis.com/stable/stock/msft/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	try:
 		api1=json.loads(api_req1.content)
 	except Exception as e:
@@ -66,8 +66,8 @@ def company(request):
 	dates=[[h_var,v_var]]
 	ticker= request.POST['ticker']
 	
-	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker + "/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_5809718036484b32b2511b568e7ed15a")
+	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	
 	
 	try:
@@ -101,8 +101,8 @@ def company_stocks(request,symbol):
 	v_var='Price'
 	title='Time vs Price(last 20 minutes)'
 	dates=[[h_var,v_var]]
-	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol + "/quote?token=pk_5809718036484b32b2511b568e7ed15a")
-	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol +"/chart/1d?token=pk_5809718036484b32b2511b568e7ed15a")
+	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	try:
 		api=json.loads(api_req.content)
 		
@@ -134,7 +134,7 @@ def graph(request,ticker):
 	
 	g_type=request.POST.get('g_type',False);
 	g_scale=request.POST.get('g_scale',False);
-	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker + "/quote?token=pk_5809718036484b32b2511b568e7ed15a")
+	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	
 	
 	try:
@@ -149,7 +149,7 @@ def graph(request,ticker):
 		v_var='Close price'
 		title='Day vs Close price(1 year)'
 		try:
-			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1y?token=pk_5809718036484b32b2511b568e7ed15a")
+			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1y?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 			api_chart=json.loads(api_chartreq.content)
 			for api_c in api_chart:
 				dates.append([api_c['date'],api_c['close']])
@@ -168,7 +168,7 @@ def graph(request,ticker):
 		v_var='Close price'
 		title='Day vs Close price(1 month)'
 		try:
-			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1m?token=pk_5809718036484b32b2511b568e7ed15a")
+			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1m?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 			api_chart=json.loads(api_chartreq.content)
 			for api_c in api_chart:
 				dates.append([api_c['date'],api_c['close']])
@@ -189,7 +189,7 @@ def graph(request,ticker):
 		v_var='Price'
 		title='Time vs Price(1 day)'
 		try:
-			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_5809718036484b32b2511b568e7ed15a")
+			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 			api_chart=json.loads(api_chartreq.content)
 			for api_c in api_chart:
 				if(api_c['minute']=='00:00' or api_c['minute']=='01:00' or api_c['minute']=='02:00' or api_c['minute']=='03:00' or api_c['minute']=='04:00' or api_c['minute']=='05:00' or api_c['minute']=='06:00' or api_c['minute']=='07:00' or api_c['minute']=='08:00' or api_c['minute']=='09:00' or api_c['minute']=='10:00' or api_c['minute']=='11:00' or api_c['minute']=='12:00' or api_c['minute']=='13:00' or api_c['minute']=='14:00' or api_c['minute']=='15:00' or api_c['minute']=='16:00' or api_c['minute']=='17:00' or api_c['minute']=='18:00' or api_c['minute']=='19:00' or api_c['minute']=='20:00' or api_c['minute']=='21:00' or api_c['minute']=='22:00' or api_c['minute']=='23:00'):
@@ -209,7 +209,7 @@ def graph(request,ticker):
 		v_var='Price'
 		title='Time vs Price(Last 20 minutes)'
 		try:
-			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/intraday-prices?&chartLast=20&token=pk_5809718036484b32b2511b568e7ed15a")
+			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/intraday-prices?&chartLast=20&token=pk_80042db83f9d49fc8195b96daf7a75ec")
 			api_chart=json.loads(api_chartreq.content)
 			for api_c in api_chart:
 				dates.append([api_c['minute'],api_c['close']])
@@ -229,7 +229,7 @@ def graph(request,ticker):
 		v_var='Price'
 		title='Time vs Price(by minute)'
 		try:
-			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_5809718036484b32b2511b568e7ed15a")
+			api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 			api_chart=json.loads(api_chartreq.content)
 			for api_c in api_chart:
 				dates.append([api_c['minute'],api_c['close']])
