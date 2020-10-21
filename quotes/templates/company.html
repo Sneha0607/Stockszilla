@@ -64,6 +64,7 @@
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		    </form>
 		    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+		    <a class="btn btn-primary" href="{% url 'favourites' symbol=api.symbol %}" role="button">{{b_text}}</a>
 		{%endif%}
 {% endif%}
 {% endblock %}

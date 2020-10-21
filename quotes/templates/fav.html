@@ -1,0 +1,37 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<nav>
+	<form class="form-inline my-2 my-lg-0" action="{% url 'company' %}" class="search-form" method="POST">
+		{% csrf_token %}
+		<input class="form-control mr-sm-2" type="search" placeholder="Enter ticker" aria-label="Search" name='ticker'>
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	  </form>
+</nav>
+{% if b == "1" %}
+	{%for api in output%}
+		{%if api%}
+			{%if api == "Error..."%}
+				{{api}}
+			{% else %}
+
+				<h1><a href="{% url 'company_stocks' symbol=api.symbol %}">{{api.companyName}}</a></h1><br>
+				Price:${{api.latestPrice}}<br>
+				Previous close:${{api.previousClose}}<br>
+				Market Cap:{{api.marketCap}}<br>
+				YTD Change: {{api.ytdChange}}<br>
+				Week 52 High: {{api.week52High}}<br>
+				Week 52 Low: {{api.week52Low}}<br>
+
+
+
+			{%endif%}
+
+		{%endif%}
+	{% endfor %}
+
+{% else %}
+<h1>Not watching any stocks</h1>
+{% endif %}
+
+{% endblock %}

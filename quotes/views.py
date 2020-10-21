@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Stock
 from django.http import JsonResponse
+from django.http import HttpResponseRedirect
 
 def stocks(request):
 	import requests
@@ -65,6 +66,10 @@ def company(request):
 	title='Time vs Price(Last 20 minutes)'
 	dates=[[h_var,v_var]]
 	ticker= request.POST['ticker']
+	if(Stock.objects.filter(ticker=ticker,username=request.user).exists()):
+		b_text="Remove from favourites"
+	else:
+		b_text="Add to favourites"
 	
 	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
@@ -74,25 +79,28 @@ def company(request):
 		api=json.loads(api_req.content)
 		
 		
+		
 	except Exception as e:
 		api="Error..."
+		dates="Error..."
 
 	try:
 		api_chart=json.loads(api_chartreq.content)
+		for api_c in api_chart:
+			dates.append([api_c['minute'],api_c['close']])
 		
 
 	except Exception as e:
 		api_chart="Error..."
-	dates_JSON="Error.."
+		dates="Error.."
 
-	for api_c in api_chart:
-		dates.append([api_c['minute'],api_c['close']])
+	
 	h_var_JSON=json.dumps(h_var)
 	v_var_JSON=json.dumps(v_var)
 	dates_JSON=json.dumps(dates)
 	title_JSON=json.dumps(title)
 
-	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON})
+	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON,'b_text':b_text})
 
 def company_stocks(request,symbol):
 	import requests
@@ -101,6 +109,10 @@ def company_stocks(request,symbol):
 	v_var='Price'
 	title='Time vs Price(last 20 minutes)'
 	dates=[[h_var,v_var]]
+	if(Stock.objects.filter(ticker=symbol,username=request.user).exists()):
+		b_text="Remove from favourites"
+	else:
+		b_text="Add to favourites"
 	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	try:
@@ -123,7 +135,7 @@ def company_stocks(request,symbol):
 		api_chart="Error..."
 		dates_JSON="Error..."
 	
-	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON})
+	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'b_text':b_text})
 
 def graph(request,ticker):
 	import requests
@@ -131,6 +143,10 @@ def graph(request,ticker):
 	h_var=''
 	v_var=''
 	dates=[[h_var,v_var]]
+	if(Stock.objects.filter(ticker=ticker,username=request.user).exists()):
+		b_text="Remove from favourites"
+	else:
+		b_text="Add to favourites"
 	
 	g_type=request.POST.get('g_type',False);
 	g_scale=request.POST.get('g_scale',False);
@@ -243,8 +259,38 @@ def graph(request,ticker):
 			api_chart="Error..."
 			dates_JSON="Error..."
 
+	return render(request,'graph.html',{'api':api,'dates_JSON':dates_JSON,'g_type':g_type,'b_text':b_text})
 
-   
-		
+def add_to_favourites(request,symbol):
+	import requests
+	f=Stock.objects.filter(ticker=symbol,username=request.user)
+	if (f.exists()):
+		f.delete()
+	else:
+		st=Stock(ticker=symbol,username=request.user)
+		st.save()
+	return company_stocks(request,symbol)
 
-	return render(request,'graph.html',{'api':api,'dates_JSON':dates_JSON,'g_type':g_type})
+
+def fav(request):
+	import requests
+	import json
+	a=Stock.objects.filter(username=request.user)
+	output=[]
+	if(a.exists()):
+		b="1"
+		for ticker_item in a:
+			api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ str(ticker_item) + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
+			try:
+				api=json.loads(api_req.content)
+			except Exception as e:
+				api="Error..."
+			output.append(api)
+
+	else:
+		b="0"
+
+	return render(request,'fav.html',{'a':a,'b':b,'output':output})
+
+
+
