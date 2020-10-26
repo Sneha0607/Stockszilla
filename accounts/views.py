@@ -6,13 +6,13 @@ from django.contrib.auth import login, logout
 from .forms import SignUpForm
 
 
-class signup_view(generic.CreateView):
-    form_class = SignUpForm
-    template_name = 'accounts/signup.html'
-    success_url = reverse_lazy('login')
+#class signup_view(generic.CreateView):
+ #   form_class = SignUpForm
+  #  template_name = 'accounts/signup.html'
+   # success_url = reverse_lazy('login')
 
 
-'''
+
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm
@@ -24,7 +24,7 @@ def signup_view(request):
     else:
         form = UserCreationForm()
     return render(request, 'accounts/signup.html', {'form': form})
-'''
+
 
 
 def login_view(request):
