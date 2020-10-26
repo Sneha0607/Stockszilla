@@ -10,4 +10,7 @@ urlpatterns = [
     path('quotes/',include('quotes.urls')),
 ]
 
+urlpatterns+=[
+path('portfolio',include('portfolio.urls',namespace='portfolio')),
+]
 urlpatterns += staticfiles_urlpatterns()

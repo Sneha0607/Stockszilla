@@ -1,0 +1,22 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<nav>Balance:${{money}}</nav><br><br>
+{%if api%}
+	{%if api == "Error..."%}
+		{{api}}
+	{% else %}
+
+	<h1>{{api.companyName}}</h1>
+	<br><br>
+	Price (per share): ${{price}}<br><br>
+	Quatity: {{quantity}}<br><br>
+	Total price: ${{t_price}}<br><br>
+	Balance (after transaction): ${{c_balance}}<br><br>
+	<a class="btn btn-primary" type="submit"  href="{% url 'portfolio:buy_share' symbol=api.symbol quantity=quantity %}" role="button">Buy</a>
+	<a class="btn btn-primary" href="{% url 'portfolio:cancel' symbol=api.symbol %}" role="button">Cancel</a>
+
+	{% endif %}
+{% endif %}
+
+{% endblock %}

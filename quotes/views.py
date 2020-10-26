@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Stock
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
+from accounts.models import Fund
+from django.contrib import messages
 
 def stocks(request):
 	import requests
@@ -61,11 +63,16 @@ def stocks(request):
 def company(request):
 	import requests
 	import json
+	a=Fund.objects.get(user=request.user)
+	money=a.funds
 	h_var='Time'
 	v_var='Price'
 	title='Time vs Price(Last 20 minutes)'
 	dates=[[h_var,v_var]]
 	ticker= request.POST['ticker']
+	if (not ticker):
+		messages.error(request,'Please enter ticker')
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 	if(Stock.objects.filter(ticker=ticker,username=request.user).exists()):
 		b_text="Remove from favourites"
 	else:
@@ -100,11 +107,13 @@ def company(request):
 	dates_JSON=json.dumps(dates)
 	title_JSON=json.dumps(title)
 
-	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON,'b_text':b_text})
+	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON,'b_text':b_text,'money':money})
 
 def company_stocks(request,symbol):
 	import requests
 	import json
+	a=Fund.objects.get(user=request.user)
+	money=a.funds
 	h_var='Time'
 	v_var='Price'
 	title='Time vs Price(last 20 minutes)'
@@ -135,11 +144,13 @@ def company_stocks(request,symbol):
 		api_chart="Error..."
 		dates_JSON="Error..."
 	
-	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'b_text':b_text})
+	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'b_text':b_text,'money':money})
 
 def graph(request,ticker):
 	import requests
 	import json
+	a=Fund.objects.get(user=request.user)
+	money=a.funds
 	h_var=''
 	v_var=''
 	dates=[[h_var,v_var]]
@@ -259,7 +270,7 @@ def graph(request,ticker):
 			api_chart="Error..."
 			dates_JSON="Error..."
 
-	return render(request,'graph.html',{'api':api,'dates_JSON':dates_JSON,'g_type':g_type,'b_text':b_text})
+	return render(request,'graph.html',{'api':api,'dates_JSON':dates_JSON,'g_type':g_type,'b_text':b_text,'money':money})
 
 def add_to_favourites(request,symbol):
 	import requests

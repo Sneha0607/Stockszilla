@@ -2,6 +2,12 @@
 
 {% block content %}
 <nav>
+	{% for message in messages %}
+		<div class="alert alert-success">
+			<a class="close" href="#" data-dismiss="alert">x</a>
+			{{message}}
+		</div>
+	{% endfor %}
 	<form class="form-inline my-2 my-lg-0" action="{% url 'company' %}" class="search-form" method="POST">
 		{% csrf_token %}
 		<input class="form-control mr-sm-2" type="search" placeholder="Enter ticker" aria-label="Search" name='ticker'>

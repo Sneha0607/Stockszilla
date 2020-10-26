@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-
+<nav>Balance:${{money}}</nav>
 {%if api%}
 		{%if api == "Error..."%}
 			{{api}}
@@ -65,6 +65,8 @@
 		    </form>
 		    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 		    <a class="btn btn-primary" href="{% url 'favourites' symbol=api.symbol %}" role="button">{{b_text}}</a>
+		    <a class="btn btn-primary" href="{% url 'portfolio:buy_stocks' symbol=api.symbol %}" role="button">Buy</a>
+
 		{%endif%}
 {% endif%}
 {% endblock %}

@@ -9,3 +9,4 @@ path('<str:symbol>',views.company_stocks,name='company_stocks'),
 path('Add_to_favourites/<str:symbol>',views.add_to_favourites,name='favourites'),
 path('favourites/',views.fav,name='fav'),
 ]
+

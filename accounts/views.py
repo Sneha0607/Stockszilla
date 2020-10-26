@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from .models import Fund
 # Create your views here.
 
 
@@ -9,7 +10,10 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            money=100000.00
             login(request, user)
+            newfund=Fund(funds=money,user=request.user)
+            newfund.save()
             return redirect('/')
             # return redirect('jo bhi first page ho stocks wala')
     else:

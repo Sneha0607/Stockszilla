@@ -1,0 +1,28 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<nav>Balance:${{money}}</nav><br><br>
+{%if api%}
+	{%if api == "Error..."%}
+		{{api}}
+	{% else %}
+	Company: {{api.companyName}}<br><br>
+	Price (per share): ${{api.latestPrice}}<br><br>
+	{% for message in messages %}
+		<div class="alert alert-success">
+			<a class="close" href="#" data-dismiss="alert">x</a>
+			{{message}}
+		</div>
+	{% endfor %}
+	No. of shares: <form class="form-inline my-2 my-lg-0" action="{% url 'portfolio:buy' symbol=api.symbol %}" class="search-form" method="POST">
+		{% csrf_token %}
+		<input class="form-control mr-sm-2" type="search" placeholder="quantity" aria-label="Search" name='quantity'>
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Proceed</button>
+	  </form>
+	  <br><br>
+	  <a class="btn btn-primary" href="{% url 'portfolio:cancel' symbol=api.symbol %}" role="button">Cancel</a>
+	
+	{% endif %}
+{% endif %}
+
+{% endblock %}
