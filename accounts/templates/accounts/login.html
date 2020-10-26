@@ -2,7 +2,10 @@
 
 <h1>Login</h1>
 <form class="site-form" action="{% url 'accounts:login' %}" method="post">
-  {% csrf_token %} {{ form }}
+  {% csrf_token %} {{ form.as_p }}
   <input type="submit" value="Login" />
 </form>
 {% endblock %}
+
+
+<!--form.as_p-->
