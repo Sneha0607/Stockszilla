@@ -3,9 +3,16 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
-<<<<<<< HEAD
 from .models import Fund
 # Create your views here.
+
+
+
+#class signup_view(generic.CreateView):
+ #   form_class = SignUpForm
+  #  template_name = 'accounts/signup.html'
+   # success_url = reverse_lazy('login')
+
 
 
 
