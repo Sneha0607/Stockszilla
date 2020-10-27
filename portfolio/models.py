@@ -9,7 +9,7 @@ class Transaction(models.Model):
 	total_price = models.DecimalField(max_digits=20,decimal_places=2)
 	action = models.CharField(max_length=5)
 	gain_loss = models.CharField(max_length=5,null=True)
-	amout = models.DecimalField(max_digits=20,decimal_places=2,null=True)
+	amount = models.DecimalField(max_digits=20,decimal_places=2,null=True)
 	b_balance = models.DecimalField(max_digits=20,decimal_places=2)
 	a_balance = models.DecimalField(max_digits=20,decimal_places=2)
 	symbol = models.CharField(max_length=10)

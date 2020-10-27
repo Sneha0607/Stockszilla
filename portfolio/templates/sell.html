@@ -1,0 +1,23 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<nav>Balance:${{money}}</nav><br><br>
+
+Company: {{h.company}}<br><br>
+Cost price (per share): ${{h.price_per_share}}<br><br>
+No. of shares available: {{h.quantity}}<br><br>
+Currect price: ${{price}}<br><br>
+{% for message in messages %}
+	<div class="alert alert-success">
+		<a class="close" href="#" data-dismiss="alert">x</a>
+		{{message}}
+	</div>
+{% endfor %}
+No. of shares to be sold: <form class="form-inline my-2 my-lg-0" action="{% url 'portfolio:sell_stocks' id=h.id %}" class="search-form" method="POST">
+	{% csrf_token %}
+	<input class="form-control mr-sm-2" type="search" placeholder="quantity" aria-label="Search" name='quantity'>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Proceed</button>
+  </form>
+  <br><br>
+  <a class="btn btn-primary" href="{% url 'portfolio:cancel' symbol=h.symbol %}" role="button">Cancel</a>
+  {% endblock %}

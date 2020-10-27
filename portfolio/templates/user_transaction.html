@@ -1,0 +1,20 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<nav>Balance:${{money}}</nav><br><br>
+
+Transaction id: {{t.id}}<br><br>
+Company: {{t.company}}<br><br>
+Bought/Sold: {{t.action}}<br><br>
+Price (per share): ${{t.price_per_share}}<br><br>
+No. of Shares: {{t.quantity}}<br><br>
+Total Cost: ${{t.total_price}}<br><br>
+Date: {{t.date}}<br><br>
+Balance (befor tranaction): ${{t.b_balance}}<br><br>
+Balance (after transaction): ${{t.a_balance}}<br><br>
+{% if t.action == "sold" %}
+	{{t.gain_loss}}: ${{t.amount}}<br><br>
+{% endif %}
+
+<a class="btn btn-primary" href="{% url 'portfolio:transaction' %}" role="button">Back</a>
+{% endblock %}

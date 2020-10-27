@@ -146,6 +146,9 @@
 		    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 		    <a class="btn btn-primary" href="{% url 'favourites' symbol=api.symbol %}" role="button">{{b_text}}</a>
 		    <a class="btn btn-primary" href="{% url 'portfolio:buy_stocks' symbol=api.symbol %}" role="button">Buy</a>
+		    {% if h == "1" %}
+		    	<a class="btn btn-primary" href="{% url 'portfolio:user_holding' symbol=api.symbol %}" role="button">Sell</a>
+		    {% endif %}
 
 		{%endif%}
 {% endif%}

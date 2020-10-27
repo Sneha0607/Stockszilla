@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Stock
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from accounts.models import Fund
 from django.contrib import messages
+from django.urls import reverse
+from portfolio.models import Holding
 
 def stocks(request):
 	import requests
@@ -77,6 +79,10 @@ def company(request):
 		b_text="Remove from favourites"
 	else:
 		b_text="Add to favourites"
+	if(Holding.objects.filter(symbol=ticker,user=request.user).exists()):
+		h="1"
+	else:
+		h="0"
 	
 	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ ticker +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
@@ -107,7 +113,7 @@ def company(request):
 	dates_JSON=json.dumps(dates)
 	title_JSON=json.dumps(title)
 
-	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON,'b_text':b_text,'money':money})
+	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'h_var_JSON':h_var_JSON,'v_var_JSON':v_var_JSON,'title_JSON':title_JSON,'b_text':b_text,'money':money,'h':h})
 
 def company_stocks(request,symbol):
 	import requests
@@ -122,6 +128,10 @@ def company_stocks(request,symbol):
 		b_text="Remove from favourites"
 	else:
 		b_text="Add to favourites"
+	if(Holding.objects.filter(symbol=symbol,user=request.user).exists()):
+		h="1"
+	else:
+		h="0"
 	api_req=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol + "/quote?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	api_chartreq=requests.get("https://cloud.iexapis.com/stable/stock/"+ symbol +"/chart/1d?token=pk_80042db83f9d49fc8195b96daf7a75ec")
 	try:
@@ -144,7 +154,7 @@ def company_stocks(request,symbol):
 		api_chart="Error..."
 		dates_JSON="Error..."
 	
-	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'b_text':b_text,'money':money})
+	return render(request,'company.html',{'api':api,'dates_JSON':dates_JSON,'b_text':b_text,'money':money,'h':h})
 
 def graph(request,ticker):
 	import requests
@@ -158,6 +168,10 @@ def graph(request,ticker):
 		b_text="Remove from favourites"
 	else:
 		b_text="Add to favourites"
+	if(Holding.objects.filter(symbol=ticker,user=request.user).exists()):
+		h="1"
+	else:
+		h="0"
 	
 	g_type=request.POST.get('g_type',False);
 	g_scale=request.POST.get('g_scale',False);
@@ -270,7 +284,7 @@ def graph(request,ticker):
 			api_chart="Error..."
 			dates_JSON="Error..."
 
-	return render(request,'graph.html',{'api':api,'dates_JSON':dates_JSON,'g_type':g_type,'b_text':b_text,'money':money})
+	return render(request,'graph.html',{'api':api,'dates_JSON':dates_JSON,'g_type':g_type,'b_text':b_text,'money':money,'h':h})
 
 def add_to_favourites(request,symbol):
 	import requests
@@ -280,8 +294,7 @@ def add_to_favourites(request,symbol):
 	else:
 		st=Stock(ticker=symbol,username=request.user)
 		st.save()
-	return company_stocks(request,symbol)
-
+	return redirect(reverse('company_stocks',kwargs={'symbol':symbol}))
 
 def fav(request):
 	import requests
