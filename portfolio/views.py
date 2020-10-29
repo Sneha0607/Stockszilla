@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 import requests
 import json
-from accounts.models import Fund
+from accounts.models import Fund,Point
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Transaction,Holding
@@ -193,6 +193,9 @@ def sell_share(request,id,quantity):
 	c_balance=float(money)+t_price
 	company=h.company
 	amt=t_price-float(h.price_per_share)*quantity
+	p = Point.objects.get(user=request.user)
+	p.points = float(p.points)+(amt*0.1)
+	p.save()
 	if(amt < 0):
 		amt=0-amt
 		g_l="Loss"
@@ -237,6 +240,10 @@ def report(request):
 	else:
 		a="0"
 	return render(request,'report.html',{'b':b,'g_l':g_l,'bought':bought,'sold':sold,'a':a,'p_l':p_l,'t':t,'money':money})
+
+def leaderboard(request):
+	p=Point.objects.all().order_by('-points')
+	return render(request,'leaderboard.html',{'p':p})
 
 
 

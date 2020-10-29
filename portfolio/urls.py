@@ -13,6 +13,7 @@ path('sell/<int:id>/',views.sell,name='sell'),
 path('sell_stocks/<int:id>/',views.sell_stocks,name='sell_stocks'),
 path('sell_share/<int:id>/<int:quantity>',views.sell_share,name='sell_share'),
 path('holdings/',views.holdings,name='holding'),
+path('leaderboard/',views.leaderboard,name='leaderboard'),
 path('todays_report/',views.report,name='report'),
 path('<str:symbol>/',views.cancel,name='cancel'),
 ]

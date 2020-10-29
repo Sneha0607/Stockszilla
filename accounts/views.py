@@ -3,7 +3,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import Fund
+from .models import Fund,Point
 from .forms import SignUpForm
 
 
@@ -16,17 +16,19 @@ from .forms import SignUpForm
 
 def signup_view(request):
     if request.method == 'POST':
-        form = SignUpForm
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             money = 100000.00
             login(request, user)
             newfund = Fund(funds=money, user=request.user)
             newfund.save()
+            newpoint = Point(points=0.0, user=user.request)
+            newpoint.save()
             return redirect('/')
             # return redirect('jo bhi first page ho stocks wala')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
 

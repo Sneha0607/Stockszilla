@@ -1,0 +1,27 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<br><br>
+<h1>Leaderboard</h1><br><br>
+
+	
+<table class="table table-stripped table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S. no.</th>
+      <th scope="col">User</th>
+      <th scope="col">Points</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for points in p%}
+        <tr>
+	      <th scope="row">{{forloop.counter}}</th>
+	      <td>{{points.user}}</a></td>
+	      <td>{{points.points}}</td>
+	    </tr>
+	{% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
