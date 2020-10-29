@@ -1,6 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
+<br>
 <nav>
 	<form class="form-inline my-2 my-lg-0" action="{% url 'company' %}" class="search-form" method="POST">
 		{% csrf_token %}
@@ -8,6 +9,7 @@
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	  </form>
 </nav>
+<br><br>
 {% if b == "1" %}
 	{%for api in output%}
 		{%if api%}
@@ -23,7 +25,7 @@
 				Week 52 High: {{api.week52High}}<br>
 				Week 52 Low: {{api.week52Low}}<br>
 
-
+				<br><br>
 
 			{%endif%}
 
@@ -33,5 +35,5 @@
 {% else %}
 <h1>Not watching any stocks</h1>
 {% endif %}
-
+<br><br><br><br><br><br>
 {% endblock %}

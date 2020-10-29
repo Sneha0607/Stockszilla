@@ -9,7 +9,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <style>
+      footer a{ color: #ffffff;}
+      footer a:hover{ color: #ffffff;}
+    </style>
     <title>Stockszilla</title>
   </head>
   <body>
@@ -25,16 +28,16 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'stocks' %}">Company Stocks<span class="sr-only">(current)</span></a>
       </li>
-      <li>
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'fav' %}">Favourites<span class="sr-only">(current)</span></a>
       </li>
-       <li>
+       <li class="nav-item active">
         <a class="nav-link" href="{% url 'portfolio:transaction' %}">Transactions</a>
       </li>
-      <li>
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'portfolio:holding' %}">Holdings</a>
       </li>
-      <li>
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'portfolio:report' %}">Today's Report</a>
       </li>
        <li>
@@ -42,13 +45,9 @@
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'stocks' %}">
-          <form
-              class="logout-link"
-              action="{% url 'accounts:logout' %}"
-              method="POST"
-            >
+          <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
               {% csrf_token %}
-              <button type="submit">Logout</button>
+              <button class="float-right bg-dark text-white" type="submit" style="position: absolute; right: 0;">Logout</button>
             </form>
             <span class="sr-only">(current)</span></a>
       </li>
@@ -68,6 +67,22 @@
     {% block content %}
     {% endblock %}
   </div>
+
+  <footer class="bg-dark text-white">
+    <div class="container py-3">
+        <div class="col-lg-6 col-sm-6 pb-2">
+          <h4>Contact Us</h4>
+          <p>
+            <strong>Phone:</strong> +91-1000000000<br>
+            <strong>Email:</strong><a href=""> stockszilla@gmail.com</a><br>
+          </p>
+        </div>
+        <div class="text-center">Developed by Binary Buggers</div> 
+    </div>
+    <div class="container-fluid text-center bg-secondary py-2">
+      &copy; 2020. All rights are reserved.
+    </div>
+  </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

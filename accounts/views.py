@@ -3,15 +3,15 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+<<<<<<< HEAD
 from .models import Fund,Point
-from .forms import SignUpForm
+from .forms import SignUpForm, LoginForm
 
 
 #class signup_view(generic.CreateView):
  #   form_class = SignUpForm
   #  template_name = 'accounts/signup.html'
    # success_url = reverse_lazy('login')
-
 
 
 def signup_view(request):
@@ -26,23 +26,21 @@ def signup_view(request):
             newpoint = Point(points=0.0, user=user.request)
             newpoint.save()
             return redirect('/')
-            # return redirect('jo bhi first page ho stocks wala')
     else:
         form = SignUpForm()
-    return render(request, 'accounts/signup.html', {'form': form})
 
+    return render(request, 'accounts/signup.html', {'form': form})
 
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             return redirect('/')
-            # return redirect('') ise bhi stocks wale first page pe redirect krna h
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})
 
 

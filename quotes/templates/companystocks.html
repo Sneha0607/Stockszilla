@@ -8,12 +8,14 @@
 			{{message}}
 		</div>
 	{% endfor %}
+	<br>
 	<form class="form-inline my-2 my-lg-0" action="{% url 'company' %}" class="search-form" method="POST">
 		{% csrf_token %}
 		<input class="form-control mr-sm-2" type="search" placeholder="Enter ticker" aria-label="Search" name='ticker'>
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	  </form>
 </nav>
+<br>
 {%for api in apis%}
 	{%if api%}
 		{%if api == "Error..."%}
@@ -27,14 +29,13 @@
 			YTD Change: {{api.ytdChange}}<br>
 			Week 52 High: {{api.week52High}}<br>
 			Week 52 Low: {{api.week52Low}}<br>
-
-
+			<br>
 
 		{%endif%}
 
 	{%endif%}
 {% endfor %}
 
-
+<br><br><br><br><br><br>
 
 {% endblock %}
