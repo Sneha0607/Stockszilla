@@ -3,16 +3,12 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import Fund,Point
+from .models import Fund, Point
 from .forms import SignUpForm, LoginForm
+from django.views.decorators.csrf import csrf_exempt
 
 
-#class signup_view(generic.CreateView):
- #   form_class = SignUpForm
-  #  template_name = 'accounts/signup.html'
-   # success_url = reverse_lazy('login')
-
-
+@csrf_exempt
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -22,7 +18,7 @@ def signup_view(request):
             login(request, user)
             newfund = Fund(funds=money, user=request.user)
             newfund.save()
-            newpoint = Point(points=0.0, user=user.request)
+            newpoint = Point(points=0.0, user=request.user)
             newpoint.save()
             return redirect('/')
     else:
