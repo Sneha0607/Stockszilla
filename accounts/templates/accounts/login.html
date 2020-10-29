@@ -1,10 +1,18 @@
 {% extends 'base_layout.html' %} {% block content %}
-
-<h1>Login</h1>
-<form class="site-form" action="{% url 'accounts:login' %}" method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <input type="submit" value="Login" />
-</form>
+<br><br>
+<div class="container">
+  <div class="col-sm-6">
+    <div class="panel-heading h2"> Login </div>
+    <br>
+    <div class="panel-body">
+      <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="submit" class="btn btn-dark" value="Login" />
+      </form>
+    </div>
+  </div>
+</div>
+<br><br><br><br>
 {% endblock %}
 
 
