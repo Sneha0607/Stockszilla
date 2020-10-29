@@ -3,7 +3,6 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
-<<<<<<< HEAD
 from .models import Fund,Point
 from .forms import SignUpForm, LoginForm
 
