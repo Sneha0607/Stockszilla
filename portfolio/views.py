@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from .models import Transaction,Holding
 from quotes.views import company_stocks
 from django.urls import reverse
+from datetime import date
 
 # Create your views here.
 def buy_stocks(request,symbol):
@@ -209,6 +210,37 @@ def sell_share(request,id,quantity):
 	a.save()
 	return redirect('portfolio:transaction')
 
+def report(request):
+	b=Fund.objects.get(user=request.user)
+	money = b.funds
+	g_l=0.0
+	bought=0.0
+	sold=0.0
+	p_l="Profit"
+	t = Transaction.objects.filter(user=request.user,date=date.today())
+	if (t.exists()):
+		a="1"
+		for transaction in t:
+			if (transaction.action == "sold"):
+				sold=sold+float(transaction.total_price)
+				if(transaction.gain_loss == "Profit"):
+					g_l=g_l+float(transaction.amount)
+				else:
+					g_l=g_l-float(transaction.amount)
+			else:
+				bought=bought+float(transaction.total_price)
+		if (g_l < 0.0):
+			p_l="Loss"
+			g_l=0-g_l
+		else:
+			p_l="Profit"
+	else:
+		a="0"
+	return render(request,'report.html',{'b':b,'g_l':g_l,'bought':bought,'sold':sold,'a':a,'p_l':p_l,'t':t,'money':money})
 
+
+
+
+	   
 
 
