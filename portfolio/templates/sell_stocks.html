@@ -1,7 +1,8 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<nav>Balance:${{money}}</nav><br><br>
+<br><br>
+<h1>Balance:${{money}}</h1><br><br>
 {%if api%}
 	{%if api == "Error..."%}
 		{{api}}
@@ -14,8 +15,8 @@
 	Total Selling price: ${{t_price}}<br><br>
 	Balance (after transaction): ${{c_balance}}<br><br>
 	{{g_l}}: ${{amt}}<br><br>
-	<a id="Sell" class="btn btn-primary" href="{% url 'portfolio:sell_share' id=h.id quantity=quantity  %}" type="submit"  role="button" disabled>Sell</a>
-	<a class="btn btn-primary" href="{% url 'portfolio:cancel' symbol=h.symbol %}" role="button">Cancel</a>
+	<a id="Sell" class="btn btn-dark" href="{% url 'portfolio:sell_share' id=h.id quantity=quantity  %}" type="submit"  role="button" disabled>Sell</a>
+	<a class="btn btn-dark" href="{% url 'portfolio:cancel' symbol=h.symbol %}" role="button">Cancel</a>
 	{% endif %}
 {% endif %}
 <br><br><br><br><br><br>

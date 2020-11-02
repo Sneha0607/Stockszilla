@@ -1,7 +1,9 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<nav>Balance:${{money}}</nav><br><br>
+<br><br>
+<h1>Balance:${{money}}</h1><br><br>
+
 {%if api%}
 	{%if api == "Error..."%}
 		{{api}}
@@ -13,8 +15,8 @@
 	Quatity: {{quantity}}<br><br>
 	Total price: ${{t_price}}<br><br>
 	Balance (after transaction): ${{c_balance}}<br><br>
-	<a id="buy" class="btn btn-primary" type="submit"  href="{% url 'portfolio:buy_share' symbol=api.symbol quantity=quantity %}" role="button" disabled>Buy</a>
-	<a class="btn btn-primary" href="{% url 'portfolio:cancel' symbol=api.symbol %}" role="button">Cancel</a>
+	<a id="buy" class="btn btn-dark" type="submit"  href="{% url 'portfolio:buy_share' symbol=api.symbol quantity=quantity %}" role="button" disabled>Buy</a>
+	<a class="btn btn-dark" href="{% url 'portfolio:cancel' symbol=api.symbol %}" role="button">Cancel</a>
 	<script>
 		windows.onload=function(){
 			document.getElementById("buy").disabled=false;

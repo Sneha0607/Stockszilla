@@ -1,10 +1,13 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<nav>Balance:${{money}}</nav><br><br>
+<br><br>
+<h1>Balance:${{money}}</h1><br><br>
 
 {% if b == "0"%}
-	No Transactions
+<br><br><br><br>
+	<h1>No Transactions today</h1>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 {% else %}
 	<br><br>

@@ -1,11 +1,13 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<nav>Balance:${{money}}</nav><br><br>
+<br><br>
+<h1>Balance:${{money}}</h1><br><br>
 
 {% if b == "0"%}
-	No Holdings
-
+<br><br>
+	<h1>No Holdings</h1>
+<br><br>
 {% else %}
 	<br><br>
 	<table class="table table-stripped table-bordered table-hover">
@@ -27,7 +29,7 @@
 		      <td>{{holding.price_per_share}}</td>
 		      <td>{{holding.quantity}}</td>
 		      <td>{{holding.total_price}}</td>
-		      <td><a class="btn btn-primary" href="{% url 'portfolio:sell' id=holding.id %}" role="button">Sell</a></td>
+		      <td><a class="btn btn-info" href="{% url 'portfolio:sell' id=holding.id %}" role="button">Sell</a></td>
 		    </tr>
 		{% endfor %}
 	  </tbody>

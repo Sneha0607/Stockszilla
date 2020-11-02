@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<nav>Balance:${{money}}</nav>
+<h1>Balance:${{money}}</h1><br><br>
 {% if not g_type %}
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	    <script type="text/javascript">
@@ -141,13 +141,13 @@
 				<option value="4">1 day (by hour)</option>
 				<option value="5">20 minutes</option>
 			</datalist>
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			<button class="btn btn-info text-white my-2 my-sm-0" type="submit">Search</button>
 		    </form>
 		    <div id="chart_div" style="width: 900px; height: 500px;"></div>
-		    <a class="btn btn-primary" href="{% url 'favourites' symbol=api.symbol %}" role="button">{{b_text}}</a>
-		    <a class="btn btn-primary" href="{% url 'portfolio:buy_stocks' symbol=api.symbol %}" role="button">Buy</a>
+		    <a class="btn btn-info" href="{% url 'favourites' symbol=api.symbol %}" role="button">{{b_text}}</a>
+		    <a class="btn btn-info" href="{% url 'portfolio:buy_stocks' symbol=api.symbol %}" role="button">Buy</a>
 		    {% if h == "1" %}
-		    	<a class="btn btn-primary" href="{% url 'portfolio:user_holding' symbol=api.symbol %}" role="button">Sell</a>
+		    	<a class="btn btn-info" href="{% url 'portfolio:user_holding' symbol=api.symbol %}" role="button">Sell</a>
 		    {% endif %}
 
 		{%endif%}
