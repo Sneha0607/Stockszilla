@@ -6,25 +6,25 @@ interests. Users can view graphs of varying scales for each stock and
 add them to favourites. All transactions details can be viewed and a
 report is generated for each day. A leaderboard is also maintained.
 
-Here is an overview of our Website : 
-HomePage
+Here is an overview of our Website : \
+HOMEPAGE
 ![Homepage](https://github.com/Sneha0607/Stockszilla/blob/master/Homepage1.png)
 ![Homepage](https://github.com/Sneha0607/Stockszilla/blob/master/Homepage2.png)
 
-Company Stocks
+COMPANY STOCKS
 ![CompanyStocks](https://github.com/Sneha0607/Stockszilla/blob/master/CompanyStocks.png)
 
-Graphs
+GRAPHS
 ![Graphs](https://github.com/Sneha0607/Stockszilla/blob/master/Graphs.png)
 
-Transactions
+TRANSACTIONS
 ![Transactions](https://github.com/Sneha0607/Stockszilla/blob/master/Transactions.png)
 
-Holdings
+HOLDINGS
 ![Holdings](https://github.com/Sneha0607/Stockszilla/blob/master/Holdings.png)
 
-Report of Each Day
+REPORT OF EACH DAY
 ![Report](https://github.com/Sneha0607/Stockszilla/blob/master/Today's%20report.png)
 
-Leaderboard
+LEADERBOARD
 ![Leaderboard](https://github.com/Sneha0607/Stockszilla/blob/master/Leaderboard.png)
