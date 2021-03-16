@@ -8,7 +8,8 @@ report is generated for each day. A leaderboard is also maintained.
 
 Here is an overview of our Website : 
 HomePage
-![Homepage](https://github.com/Sneha0607/Stockszilla/blob/master/Homepage.png)
+![Homepage](https://github.com/Sneha0607/Stockszilla/blob/master/Homepage1.png)
+![Homepage](https://github.com/Sneha0607/Stockszilla/blob/master/Homepage2.png)
 
 Company Stocks
 ![CompanyStocks](https://github.com/Sneha0607/Stockszilla/blob/master/CompanyStocks.png)
